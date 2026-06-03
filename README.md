@@ -34,7 +34,7 @@ Use **Shopping List Sorter: Sort shopping lists in current note** to sort manual
 - store groups sorted A-Z
 - items inside each group sorted A-Z with German-aware collation
 
-Store keywords are matched case-insensitively around word and punctuation boundaries. The default keywords are `aldi`, `dm`, `lidl`, `netto`, `penny`, and `rewe`.
+Store keywords are matched case-insensitively around word and punctuation boundaries. The default keywords are `aldi`, `dm`, `edeka`, `lidl`, `netto`, `penny`, and `rewe`.
 
 ## Settings
 
@@ -54,5 +54,5 @@ pnpm build
 The Obsidian runtime loads `manifest.json`, the bundled `main.js`, and `styles.css` from a vault plugin folder:
 
 ```text
-<Vault>/.obsidian/plugins/obsidian-shopping-list-sorter/
+<Vault>/.obsidian/plugins/shopping-list-sorter/
 ```

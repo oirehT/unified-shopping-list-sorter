@@ -10,8 +10,8 @@ export interface ShoppingListSorterSettings {
 
 export const DEFAULT_SETTINGS: ShoppingListSorterSettings = {
 	autoSort: true,
-	autoSortDelayMs: 800,
-	storeKeywords: 'aldi, dm, lidl, netto, penny, rewe',
+	autoSortDelayMs: 1000,
+	storeKeywords: 'aldi, dm, edeka, lidl, netto, penny, rewe',
 	defaultListTitle: 'Shopping list',
 };
 
@@ -49,7 +49,7 @@ export class ShoppingListSorterSettingTab extends PluginSettingTab {
 			.setDesc('Delay in milliseconds before sorting after an edit.')
 			.addText((text) =>
 				text
-					.setPlaceholder('800')
+					.setPlaceholder('1000')
 					.setValue(String(this.plugin.settings.autoSortDelayMs))
 					.onChange(async (value) => {
 						const parsed = Number.parseInt(value, 10);
@@ -66,7 +66,7 @@ export class ShoppingListSorterSettingTab extends PluginSettingTab {
 			.setDesc('Comma-separated store names used for grouping.')
 			.addTextArea((text) =>
 				text
-					.setPlaceholder('aldi, dm, lidl, netto, penny, rewe')
+					.setPlaceholder('aldi, dm, edeka, lidl, netto, penny, rewe')
 					.setValue(this.plugin.settings.storeKeywords)
 					.onChange(async (value) => {
 						this.plugin.settings.storeKeywords = value;

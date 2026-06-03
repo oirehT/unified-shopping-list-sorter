@@ -5,7 +5,7 @@ import {
 	sortShoppingLists,
 } from '../src/shoppingList';
 
-const stores = ['aldi', 'rewe', 'dm', 'lidl', 'netto', 'penny'];
+const stores = ['aldi', 'rewe', 'dm', 'edeka', 'lidl', 'netto', 'penny'];
 
 describe('sortShoppingLists', () => {
 	it('keeps unchecked items above checked items and sorts each status group', () => {
@@ -48,6 +48,7 @@ describe('sortShoppingLists', () => {
 			'- [ ] Milch Aldi',
 			'- [ ] Kaffee',
 			'- [ ] Body Creme dm',
+			'- [ ] Gurken Edeka',
 			'- [ ] Nudeln Rewe',
 			'- [ ] Pizza Rewe/Aldi',
 			'<!-- shopping-list:end -->',
@@ -65,6 +66,7 @@ describe('sortShoppingLists', () => {
 				'- [ ] Milch Aldi',
 				'- [ ] Pizza Rewe/Aldi',
 				'- [ ] Body Creme dm',
+				'- [ ] Gurken Edeka',
 				'- [ ] Nudeln Rewe',
 				'- [ ] Pesto Rewe',
 				'<!-- shopping-list:end -->',
