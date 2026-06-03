@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -66,6 +67,9 @@ jobs:
           (cd release && sha256sum main.js manifest.json styles.css > checksums.txt)
           cat release/checksums.txt
 
+      - name: Generate release notes
+        run: node .github/scripts/release-notes.mjs
+
       - name: Attest release assets
         uses: actions/attest@v4
         with:
@@ -76,6 +80,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release edit "$RELEASE_TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$RELEASE_TAG" \
+              --notes-file release/notes.md
             gh release upload "$RELEASE_TAG" \
               release/main.js \
               release/manifest.json \
@@ -89,5 +97,5 @@ jobs:
               release/styles.css \
               --repo "$GITHUB_REPOSITORY" \
               --title "$RELEASE_TAG" \
-              --generate-notes
+              --notes-file release/notes.md
           fi

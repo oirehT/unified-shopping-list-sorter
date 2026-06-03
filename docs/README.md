@@ -11,6 +11,6 @@ Unified Shopping List Sorter is an Obsidian plugin that sorts only managed shopp
 
 Start with the root `README.md` for usage, sorting rules, settings, and development commands.
 
-Release assets are `main.js`, `manifest.json`, and `styles.css`. Publish releases through the GitHub Actions release workflow so those assets receive provenance attestations.
+Release assets are `main.js`, `manifest.json`, and `styles.css`. Publish releases through the GitHub Actions release workflow so those assets receive provenance attestations and release notes generated from Conventional Commit prefixes.
 
 Keep the plugin ID `shopping-list-sorter` stable unless a migration plan exists.
