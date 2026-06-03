@@ -1,6 +1,6 @@
-# Shopping List Sorter
+# Unified Shopping List Sorter
 
-Shopping List Sorter is an Obsidian plugin for managed shopping-list blocks. It inserts Markdown task-list blocks into notes and keeps only those blocks sorted by checkbox status, configured store keywords, and item name.
+Unified Shopping List Sorter is an Obsidian plugin for managed shopping-list blocks. It inserts Markdown task-list blocks into notes and keeps only those blocks sorted by checkbox status, configured store keywords, and item name.
 
 ## Current scope
 
@@ -13,7 +13,7 @@ Shopping List Sorter is an Obsidian plugin for managed shopping-list blocks. It 
 
 ## Usage
 
-Use the command palette command **Shopping List Sorter: Insert shopping list** to add a managed block to the current note:
+Use the command palette command **Unified Shopping List Sorter: Insert shopping list** to add a managed block to the current note:
 
 ```md
 <!-- shopping-list:start {"title":"Shopping list"} -->
@@ -24,7 +24,7 @@ Use the command palette command **Shopping List Sorter: Insert shopping list** t
 
 Only content between those markers is managed. The plugin hides the marker lines in the editor while keeping them in the Markdown source. Normal Markdown task lists elsewhere in the note are ignored.
 
-Use **Shopping List Sorter: Sort shopping lists in current note** to sort manually. When auto-sort is enabled, the plugin also sorts after editor changes once the configured delay has elapsed.
+Use **Unified Shopping List Sorter: Sort shopping lists in current note** to sort manually. When auto-sort is enabled, the plugin also sorts after editor changes once the configured delay has elapsed.
 
 ## Sorting rules
 
