@@ -1,0 +1,26 @@
+{
+	"name": "obsidian-shopping-list-sorter",
+	"version": "0.1.0",
+	"description": "Obsidian plugin for auto-sorting managed shopping lists.",
+	"main": "main.js",
+	"type": "module",
+	"packageManager": "pnpm@10.33.3",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",
+		"test": "vitest run"
+	},
+	"keywords": [
+		"obsidian",
+		"obsidian-plugin",
+		"shopping-list"
+	],
+	"license": "MIT",
+	"devDependencies": {
+		"@types/node": "24.12.4",
+		"esbuild": "0.28.0",
+		"obsidian": "1.12.3",
+		"typescript": "6.0.3",
+		"vitest": "4.1.7"
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"id": "obsidian-shopping-list-sorter",
+	"name": "Shopping List Sorter",
+	"version": "0.1.0",
+	"minAppVersion": "1.0.0",
+	"description": "Auto-sort managed shopping-list blocks by checkbox status, configured store keywords, and item name.",
+	"author": "Gustav",
+	"isDesktopOnly": false
+}
