@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { createShoppingListBlock, sortShoppingLists } from '../src/shoppingList';
+import {
+	createShoppingListBlock,
+	isShoppingListMarkerLine,
+	sortShoppingLists,
+} from '../src/shoppingList';
 
 const stores = ['aldi', 'rewe', 'dm', 'lidl', 'netto', 'penny'];
 
@@ -180,5 +184,17 @@ describe('createShoppingListBlock', () => {
 				'',
 			].join('\n'),
 		);
+	});
+});
+
+describe('isShoppingListMarkerLine', () => {
+	it('identifies managed block markers for editor hiding', () => {
+		expect(
+			isShoppingListMarkerLine(
+				'<!-- shopping-list:start {"title":"Alltag einkaufen"} -->',
+			),
+		).toBe(true);
+		expect(isShoppingListMarkerLine('<!-- shopping-list:end -->')).toBe(true);
+		expect(isShoppingListMarkerLine('- [ ] Milch Aldi')).toBe(false);
 	});
 });

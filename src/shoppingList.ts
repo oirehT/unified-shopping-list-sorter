@@ -74,6 +74,10 @@ export function sortShoppingLists(
 	};
 }
 
+export function isShoppingListMarkerLine(line: string): boolean {
+	return isStartMarker(line) || isEndMarker(line);
+}
+
 function sortBlockLines(
 	lines: string[],
 	options: SortShoppingListsOptions,

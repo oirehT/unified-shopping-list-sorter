@@ -1,4 +1,5 @@
 import { Editor, Notice, Plugin } from 'obsidian';
+import { shoppingListMarkerHider } from './editorDecorations';
 import {
 	DEFAULT_SETTINGS,
 	parseStoreKeywords,
@@ -44,6 +45,7 @@ export default class ShoppingListSorterPlugin extends Plugin {
 				this.scheduleAutoSort(editor);
 			}),
 		);
+		this.registerEditorExtension(shoppingListMarkerHider);
 
 		this.addSettingTab(new ShoppingListSorterSettingTab(this.app, this));
 	}
