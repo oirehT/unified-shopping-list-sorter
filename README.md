@@ -10,6 +10,38 @@ Shopping List Sorter is an Obsidian plugin for managed shopping-list blocks. It 
 - Sort store-aware items using configurable German grocery store keywords.
 - Auto-sort with a configurable debounce delay.
 
+## Usage
+
+Use the command palette command **Shopping List Sorter: Insert shopping list** to add a managed block to the current note:
+
+```md
+<!-- shopping-list:start {"title":"Shopping list"} -->
+## Shopping list
+- [ ] Item
+<!-- shopping-list:end -->
+```
+
+Only content between those markers is managed. Normal Markdown task lists elsewhere in the note are ignored.
+
+Use **Shopping List Sorter: Sort shopping lists in current note** to sort manually. When auto-sort is enabled, the plugin also sorts after editor changes once the configured delay has elapsed.
+
+## Sorting rules
+
+- unchecked tasks first
+- checked tasks second
+- untagged items before store-grouped items
+- store groups sorted A-Z
+- items inside each group sorted A-Z with German-aware collation
+
+Store keywords are matched case-insensitively around word and punctuation boundaries. The default keywords are `aldi`, `dm`, `lidl`, `netto`, `penny`, and `rewe`.
+
+## Settings
+
+- **Auto-sort**: enable or disable sorting after edits.
+- **Auto-sort delay**: debounce delay in milliseconds.
+- **Store keywords**: comma-separated store names for grouping.
+- **Default list title**: heading used by the insert command.
+
 ## Development
 
 ```bash
@@ -23,4 +55,3 @@ The Obsidian runtime loads `manifest.json` and the bundled `main.js` from a vaul
 ```text
 <Vault>/.obsidian/plugins/obsidian-shopping-list-sorter/
 ```
-Obsidian plugin for auto-sorting managed shopping lists
