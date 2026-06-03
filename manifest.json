@@ -1,7 +1,7 @@
 {
 	"id": "shopping-list-sorter",
 	"name": "Unified Shopping List Sorter",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minAppVersion": "1.0.0",
 	"description": "Auto-sort managed shopping-list blocks by checkbox status, configured store keywords, and item name.",
 	"author": "oirehT",

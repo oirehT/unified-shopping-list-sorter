@@ -1,6 +1,6 @@
 {
 	"name": "unified-shopping-list-sorter",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "Auto-sort managed shopping lists in Obsidian.",
 	"main": "main.js",
 	"type": "module",
