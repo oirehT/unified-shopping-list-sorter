@@ -104,6 +104,8 @@ Some common German supermarket keyword sets produce these group orders:
 - **Store keywords**: comma-separated store names for grouping.
 - **Default list title**: heading used by the insert command.
 
+Settings are saved through Obsidian plugin data (`.obsidian/plugins/shopping-list-sorter/data.json`). With Obsidian Sync, enable syncing for plugin data/community plugin settings so store keyword changes are carried to other devices in the sync chain.
+
 ## Development
 
 ```bash
