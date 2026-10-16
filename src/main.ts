@@ -105,7 +105,7 @@ export default class ShoppingListSorterPlugin extends Plugin {
 
 		this.isSorting = true;
 		try {
-			replaceEditorContent(editor, result.text);
+			replaceEditorContent(editor, result.text, result.lineMap);
 		} finally {
 			this.isSorting = false;
 		}
@@ -134,9 +134,12 @@ export default class ShoppingListSorterPlugin extends Plugin {
 	}
 }
 
-function replaceEditorContent(editor: Editor, content: string): void {
+function replaceEditorContent(editor: Editor, content: string, lineMap: number[]): void {
 	const cursor = editor.getCursor();
-	const cursorOffset = editor.posToOffset(cursor);
+	const nextLine = lineMap[cursor.line];
+	if (nextLine === undefined) {
+		throw new Error(`Cursor line ${cursor.line} is missing from the sort line map.`);
+	}
 	const lastLine = editor.lastLine();
 	const end = {
 		line: lastLine,
@@ -144,6 +147,5 @@ function replaceEditorContent(editor: Editor, content: string): void {
 	};
 
 	editor.replaceRange(content, { line: 0, ch: 0 }, end, 'shopping-list-sorter');
-	const nextOffset = Math.min(cursorOffset, content.length);
-	editor.setCursor(editor.offsetToPos(nextOffset));
+	editor.setCursor({ line: nextLine, ch: cursor.ch });
 }

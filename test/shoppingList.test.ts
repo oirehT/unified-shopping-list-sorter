@@ -173,6 +173,65 @@ describe('sortShoppingLists', () => {
 		expect(result.changed).toBe(false);
 		expect(result.text).toBe(input);
 	});
+
+	it('maps each original line to its sorted line so the cursor can follow an item', () => {
+		const input = [
+			'Outside',
+			'<!-- shopping-list:start -->',
+			'## Alltag einkaufen',
+			'- [ ] Zwiebeln',
+			'- [ ] Milch Aldi',
+			'- [ ] Brot',
+			'<!-- shopping-list:end -->',
+			'<!-- shopping-list:start -->',
+			'- [ ] Tee',
+			'- [ ] Apfel',
+			'<!-- shopping-list:end -->',
+		].join('\n');
+
+		const result = sortShoppingLists(input, { storeKeywords: stores });
+		const inputLines = input.split('\n');
+		const outputLines = result.text.split('\n');
+
+		expect(result.lineMap).toEqual([0, 1, 2, 4, 5, 3, 6, 7, 9, 8, 10]);
+		inputLines.forEach((line, index) => {
+			expect(outputLines[result.lineMap[index] ?? -1]).toBe(line);
+		});
+	});
+
+	it('maps removed blank lines to the sorted line of the item above them', () => {
+		const input = [
+			'<!-- shopping-list:start -->',
+			'- [ ] Zwiebeln',
+			'',
+			'- [ ] Brot',
+			'<!-- shopping-list:end -->',
+		].join('\n');
+
+		const result = sortShoppingLists(input, { storeKeywords: stores });
+
+		expect(result.text.split('\n')).toEqual([
+			'<!-- shopping-list:start -->',
+			'- [ ] Brot',
+			'- [ ] Zwiebeln',
+			'<!-- shopping-list:end -->',
+		]);
+		expect(result.lineMap).toEqual([0, 2, 2, 1, 3]);
+	});
+
+	it('returns an identity line map when nothing needs sorting', () => {
+		const input = [
+			'<!-- shopping-list:start -->',
+			'- [ ] Brot',
+			'- [ ] Milch',
+			'<!-- shopping-list:end -->',
+		].join('\n');
+
+		const result = sortShoppingLists(input, { storeKeywords: stores });
+
+		expect(result.changed).toBe(false);
+		expect(result.lineMap).toEqual([0, 1, 2, 3]);
+	});
 });
 
 describe('createShoppingListBlock', () => {

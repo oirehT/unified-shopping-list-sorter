@@ -24,7 +24,7 @@ Use the command palette command **Unified Shopping List Sorter: Insert shopping 
 
 Only content between those markers is managed. The plugin hides the marker lines in the editor while keeping them in the Markdown source. Normal Markdown task lists elsewhere in the note are ignored.
 
-Use **Unified Shopping List Sorter: Sort shopping lists in current note** to sort manually. When auto-sort is enabled, the plugin also sorts after editor changes once the configured delay has elapsed.
+Use **Unified Shopping List Sorter: Sort shopping lists in current note** to sort manually. When auto-sort is enabled, the plugin also sorts after editor changes once the configured delay has elapsed. The cursor moves with the item you were editing, so you can keep typing where you left off.
 
 ## Sorting rules
 

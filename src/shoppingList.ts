@@ -14,6 +14,8 @@ export interface SortShoppingListsResult {
 	text: string;
 	changed: boolean;
 	blocksSorted: number;
+	/** New line index for each original line; removed blank lines map to the item above them. */
+	lineMap: number[];
 }
 
 interface TaskLine {
@@ -43,6 +45,7 @@ export function sortShoppingLists(
 ): SortShoppingListsResult {
 	const lines = markdown.split('\n');
 	const sortedLines = [...lines];
+	const lineOrigins = lines.map((_, index) => index);
 	let changed = false;
 	let blocksSorted = 0;
 
@@ -59,7 +62,19 @@ export function sortShoppingLists(
 		const blockLines = sortedLines.slice(lineIndex + 1, endIndex);
 		const sortedBlock = sortBlockLines(blockLines, options);
 		if (sortedBlock.changed) {
+			const blockOrigins = lineOrigins.slice(lineIndex + 1, endIndex);
 			sortedLines.splice(lineIndex + 1, blockLines.length, ...sortedBlock.lines);
+			lineOrigins.splice(
+				lineIndex + 1,
+				blockLines.length,
+				...sortedBlock.sources.map((source) => {
+					const origin = blockOrigins[source];
+					if (origin === undefined) {
+						throw new Error(`Sorted line source ${source} is outside the block.`);
+					}
+					return origin;
+				}),
+			);
 			changed = true;
 			blocksSorted += 1;
 		}
@@ -71,7 +86,27 @@ export function sortShoppingLists(
 		text: changed ? sortedLines.join('\n') : markdown,
 		changed,
 		blocksSorted,
+		lineMap: createLineMap(lineOrigins, lines.length),
 	};
+}
+
+function createLineMap(lineOrigins: number[], lineCount: number): number[] {
+	const lineMap = new Array<number>(lineCount).fill(-1);
+	lineOrigins.forEach((origin, index) => {
+		lineMap[origin] = index;
+	});
+
+	for (let index = 0; index < lineCount; index += 1) {
+		if (lineMap[index] === -1) {
+			const previous = lineMap[index - 1];
+			if (previous === undefined || previous === -1) {
+				throw new Error(`Removed line ${index} has no surviving line above it.`);
+			}
+			lineMap[index] = previous;
+		}
+	}
+
+	return lineMap;
 }
 
 export function isShoppingListMarkerLine(line: string): boolean {
@@ -81,7 +116,7 @@ export function isShoppingListMarkerLine(line: string): boolean {
 function sortBlockLines(
 	lines: string[],
 	options: SortShoppingListsOptions,
-): { lines: string[]; changed: boolean } {
+): { lines: string[]; changed: false } | { lines: string[]; sources: number[]; changed: true } {
 	const taskIndexes = lines
 		.map((line, index) => ({ line, index, task: parseTaskLine(line) }))
 		.filter((entry) => entry.task !== null);
@@ -143,7 +178,16 @@ function sortBlockLines(
 	];
 
 	const changed = nextLines.some((line, index) => line !== lines[index]);
-	return { lines: changed ? nextLines : lines, changed };
+	if (!changed) {
+		return { lines, changed: false };
+	}
+
+	const sources = [
+		...lines.slice(0, firstTaskIndex).map((_, index) => index),
+		...sortedTasks.map((task) => firstTaskIndex + task.index),
+		...lines.slice(lastTaskIndex + 1).map((_, index) => lastTaskIndex + 1 + index),
+	];
+	return { lines: nextLines, sources, changed: true };
 }
 
 function parseTaskLine(line: string): {
