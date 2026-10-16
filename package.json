@@ -4,7 +4,7 @@
 	"description": "Auto-sort managed shopping lists in Obsidian.",
 	"main": "main.js",
 	"type": "module",
-	"packageManager": "pnpm@10.33.3",
+	"packageManager": "pnpm@12.11.2",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc --noEmit --skipLibCheck && node esbuild.config.mjs production",
@@ -17,17 +17,13 @@
 	],
 	"license": "MIT",
 	"devDependencies": {
-		"@codemirror/state": "6.5.0",
-		"@codemirror/view": "6.38.6",
-		"@types/node": "24.12.4",
-		"esbuild": "0.28.0",
-		"obsidian": "1.12.3",
-		"typescript": "6.0.3",
-		"vitest": "4.1.7"
-	},
-	"pnpm": {
-		"overrides": {
-			"@codemirror/state": "6.5.0"
-		}
+		"@codemirror/state": "6.7.6",
+		"@codemirror/view": "6.43.13",
+		"@types/node": "24.19.2",
+		"esbuild": "0.28.2",
+		"obsidian": "1.14.4",
+		"typescript": "7.0.2",
+		"vite": "8.3.4",
+		"vitest": "5.0.4"
 	}
 }
