@@ -219,6 +219,35 @@ describe('sortShoppingLists', () => {
 		expect(result.lineMap).toEqual([0, 2, 2, 1, 3]);
 	});
 
+	it('sorts a block that directly follows a block whose blank lines were removed', () => {
+		const input = [
+			'<!-- shopping-list:start -->',
+			'- [ ] Zwiebeln',
+			'',
+			'- [ ] Brot',
+			'<!-- shopping-list:end -->',
+			'<!-- shopping-list:start -->',
+			'- [ ] Tee',
+			'- [ ] Apfel',
+			'<!-- shopping-list:end -->',
+		].join('\n');
+
+		const result = sortShoppingLists(input, { storeKeywords: stores });
+
+		expect(result.blocksSorted).toBe(2);
+		expect(result.text.split('\n')).toEqual([
+			'<!-- shopping-list:start -->',
+			'- [ ] Brot',
+			'- [ ] Zwiebeln',
+			'<!-- shopping-list:end -->',
+			'<!-- shopping-list:start -->',
+			'- [ ] Apfel',
+			'- [ ] Tee',
+			'<!-- shopping-list:end -->',
+		]);
+		expect(result.lineMap).toEqual([0, 2, 2, 1, 3, 4, 6, 5, 7]);
+	});
+
 	it('returns an identity line map when nothing needs sorting', () => {
 		const input = [
 			'<!-- shopping-list:start -->',

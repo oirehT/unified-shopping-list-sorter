@@ -79,7 +79,8 @@ export function sortShoppingLists(
 			blocksSorted += 1;
 		}
 
-		lineIndex = endIndex;
+		// Continue from the end marker's current position; sorting can drop blank lines.
+		lineIndex += sortedBlock.lines.length + 1;
 	}
 
 	return {
