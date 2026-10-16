@@ -5,6 +5,8 @@
 - Unified Shopping List Sorter is an Obsidian plugin for managed shopping-list blocks.
 - The plugin ID is `shopping-list-sorter`; keep it stable for existing installs.
 - Use `pnpm` for dependencies, tests, and builds.
+- pnpm settings (`overrides`, `allowBuilds`, `minimumReleaseAge`) live in `pnpm-workspace.yaml`; pnpm 11+ ignores the `pnpm` field in `package.json`.
+- Pin `@codemirror/state` and `@codemirror/view` to the exact versions in `obsidian`'s `peerDependencies`, and keep the `@codemirror/state` override in `pnpm-workspace.yaml` on the same version.
 
 ## Workflow
 
